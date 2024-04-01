@@ -27,8 +27,20 @@ export class AzureServiceService {
     );
   }
 
-  getContainerData(): Observable<any> {
-    return this.http.get('http://52.224.197.225:8080');
-  }
+    // getContainerData(): Observable<any> {
+    //   return this.http.get('http://52.224.197.225:8080');
+    // }
+
+    checkServerStatus(): void {
+      this.http.get('http://52.224.197.225:8080/').pipe(
+        catchError((error: any) => {
+          console.error('Error checking server status:', error);
+          throw error;
+        })
+      ).subscribe(() => {
+        console.log('Server activated successfully');
+        // Puedes agregar más lógica aquí si es necesario
+      });
+    }
   
 }
