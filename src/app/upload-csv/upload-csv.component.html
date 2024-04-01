@@ -1,0 +1,199 @@
+<app-navbar></app-navbar>
+<div *ngIf="content" class="">
+    <div class="px-12 pt-12 md:px-0 md:pt-20">        
+        <span class="text-3xl text-white font-bold md:text-6xl">Columnas encontradas</span>        
+    </div>
+    <div class="px-8 py-3 md:py-3 md:px-0">    
+        <span class="text-center text-lg text-white/50 font-normal md:p-0 md:text-4xl">Selecciona cuatro para personalizar tu video: {{ selectedData.length }}/4</span>        
+    </div>
+    <!-- Muestra los datos -->
+    <div class="md:pt-12">
+        <!-- Cilco donde se muestran las columnas -->
+        <div  class="md:flex md:flex-col gap-4">                
+            <!-- COLUMNAS ENCONTRADAS -->           
+            <div *ngFor="let key of getObjectKeys(content)" class="p-5 md:p-4">
+                <div class="rounded-xl md:ml-20 md:mr-20 backdrop-blur-sm bg-black/30 md:rounded-full">
+                    <div class="md:grid md:grid-cols-2 gap-4">
+                        <div class="md:flex">
+                            <div class="pt-8 pb-5 md:pt-0 md:pb-0 md:p-0">
+                                <button class="w-12 h-12 rounded-full gradient md:mx-8 md:my-8 md:w-12 md:h-12">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16" fill="none" class="ml-4">
+                                        <g clip-path="url(#clip0_113_123)">
+                                            <path d="M14.6335 2.28572V3.71428C14.6335 4.97322 11.4384 6 7.50034 6C3.56223 6 0.367188 4.97322 0.367188 3.71428V2.28572C0.367188 1.02678 3.56223 0 7.50034 0C11.4384 0 14.6335 1.02678 14.6335 2.28572ZM14.6335 5.5V8.71428C14.6335 9.97322 11.4384 11 7.50034 11C3.56223 11 0.367188 9.97322 0.367188 8.71428V5.5C1.8997 6.53572 4.70465 7.01788 7.50034 7.01788C10.296 7.01788 13.1009 6.53572 14.6335 5.5ZM14.6335 10.5V13.7143C14.6335 14.9732 11.4384 16 7.50034 16C3.56223 16 0.367188 14.9732 0.367188 13.7143V10.5C1.8997 11.5357 4.70465 12.0179 7.50034 12.0179C10.296 12.0179 13.1009 11.5357 14.6335 10.5Z" fill="white"/>                            </g>
+                                        <defs>
+                                            <clipPath id="clip0_113_123">
+                                                <rect width="15" height="16" fill="white"/>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="md:grid-rows-2 md:items-start md:mt-7">
+                                <div class="text-xl md:flex text-white md:text-2xl text-start font-bold font-normal">
+                                    <span class="uppercase"> {{ key }}</span>
+                                </div>
+                                <div class="text-white/50 font-normal md:text-lg">
+                                    <span class="uppercase text-start">{{ content[key] }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-5 pt-5 pb-5 md:pb-5 md:pt-0 md:px-0 md:flex md:items-center md:justify-end">
+                            <!-- Selecciona -->                            
+                            <div class="md:pr-12">
+                                <button class="py-2 mb-5 mt-5 md:mb-0 md:mt-0 w-full bg-gradient-to-r from-purple-800 to-purple-950 font-bold md:py-3 rounded-3xl text-white md:w-40" (click)="onSelect(key)">
+                                    {{  columnsSelection[key] && columnsSelection[key].selected ? 'Deseleccionar' : 'Seleccionar'}} 
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-8 md:pb-12" *ngIf="selectedData.length === 4">
+        <form #csvForm="ngForm" (submit)="saveSelectedData()" >
+            <input type="text" name="userId" [(ngModel)]="userId" class="hidden md:hidden">
+            <div *ngFor="let data of selectedData" class="hidden: md:hidden">                
+                <input type="text" [name]="data.key" [(ngModel)]="csvFields[data.value]">
+            </div>            
+            <button class="py-2 px-6 bg-gradient-to-r from-purple-800 to-purple-950 hover:font-bold md:py-3 rounded-3xl text-white md:w-52" type="submit">
+                Personalizar video
+            </button>            
+        </form>        
+    </div>
+</div>
+
+
+
+<!-- Contenido para subir CSV
+
+<div *ngIf="!content" class="grid grid-cols-2 items-center">
+    <div class="flex flex-col items-center">
+        <span class="text-3xl text-white font-normal md:text-5xl">Sube tu propio CSV</span>
+        <div class="bg-black/50 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43" fill="none" class="bg-red">
+                <g clip-path="url(#clip0_91_6)">
+                    <path d="M24.8594 32.25H18.1406C17.0236 32.25 16.125 31.3514 16.125 30.2344V16.125H8.75957C7.26465 16.125 6.51719 14.3194 7.57539 13.2612L20.3494 0.47876C20.9793 -0.151123 22.0123 -0.151123 22.6422 0.47876L35.4246 13.2612C36.4828 14.3194 35.7354 16.125 34.2404 16.125H26.875V30.2344C26.875 31.3514 25.9764 32.25 24.8594 32.25ZM43 31.5782V40.9844C43 42.1014 42.1014 43 40.9844 43H2.01562C0.898633 43 0 42.1014 0 40.9844V31.5782C0 30.4612 0.898633 29.5625 2.01562 29.5625H13.4375V30.2344C13.4375 32.8295 15.5455 34.9375 18.1406 34.9375H24.8594C27.4545 34.9375 29.5625 32.8295 29.5625 30.2344V29.5625H40.9844C42.1014 29.5625 43 30.4612 43 31.5782ZM32.5859 38.9688C32.5859 38.045 31.8301 37.2891 30.9062 37.2891C29.9824 37.2891 29.2266 38.045 29.2266 38.9688C29.2266 39.8926 29.9824 40.6485 30.9062 40.6485C31.8301 40.6485 32.5859 39.8926 32.5859 38.9688ZM37.9609 38.9688C37.9609 38.045 37.2051 37.2891 36.2812 37.2891C35.3574 37.2891 34.6016 38.045 34.6016 38.9688C34.6016 39.8926 35.3574 40.6485 36.2812 40.6485C37.2051 40.6485 37.9609 39.8926 37.9609 38.9688Z" fill="white"/>
+                </g>
+                <defs>
+                <clipPath id="clip0_91_6">
+                    <rect width="43" height="43" fill="white"/>
+                </clipPath>
+                </defs>
+            </svg>    
+        </div>
+    </div>
+    <div class="">
+        <span class="text-3xl text-white font-normal md:text-5xl">Sube tu propio CSV</span>
+    </div>
+</div> -->
+
+<div *ngIf="!content" class="md:grid md:grid-cols-2 md:gap-4">
+    <div class="p-8 md:p-0 md:mt-16">
+        <span class="text-3xl text-white font-normal md:text-5xl">
+            Sube tu propio CSV
+        </span>
+    </div>
+    <div class="md:flex md:justify-center">
+        <button class="hidden md:block md:mt-16 bg-white rounded-full gradient md:w-32 md:h-32">
+            <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43" fill="none" class="md:ml-11">
+                <path d="M22.3417 0C15.6382 0 11.2963 2.74654 7.88744 7.64476C7.26907 8.53332 7.45971 9.75159 8.32231 10.4057L11.9452 13.1527C12.8164 13.8132 14.0559 13.6588 14.738 12.8043C16.8417 10.1688 18.4022 8.6514 21.6883 8.6514C24.272 8.6514 27.4677 10.3142 27.4677 12.8196C27.4677 14.7136 25.9042 15.6863 23.3531 17.1166C20.3781 18.7845 16.4413 20.8603 16.4413 26.053V26.875C16.4413 27.9882 17.3437 28.8906 18.4569 28.8906H24.5433C25.6565 28.8906 26.5589 27.9882 26.5589 26.875V26.3902C26.5589 22.7906 37.0795 22.6407 37.0795 12.9C37.0796 5.56447 29.4704 0 22.3417 0ZM21.5001 31.3647C18.2923 31.3647 15.6825 33.9745 15.6825 37.1824C15.6825 40.3902 18.2923 43 21.5001 43C24.708 43 27.3178 40.3902 27.3178 37.1823C27.3178 33.9745 24.708 31.3647 21.5001 31.3647Z" fill="white"/>
+            </svg>                       
+        </button>
+    </div>        
+    <div class="p-8 border-b md:border-b-0 md:p-0 md:px-32 md:border-r border-white/30">
+        <div class="backdrop-blur-sm bg-black/50 rounded-lg md:w-full">
+            <!-- Upload file svg -->
+            <div class="p-8 md:flex md:justify-center md:items-center md:p-12">
+                <button class=" w-20 h-20 bg-white rounded-full gradient md:w-32 md:h-32">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43" fill="none" class="ml-5 md:ml-11">
+                        <g clip-path="url(#clip0_91_6)">
+                            <path d="M24.8594 32.25H18.1406C17.0236 32.25 16.125 31.3514 16.125 30.2344V16.125H8.75957C7.26465 16.125 6.51719 14.3194 7.57539 13.2612L20.3494 0.47876C20.9793 -0.151123 22.0123 -0.151123 22.6422 0.47876L35.4246 13.2612C36.4828 14.3194 35.7354 16.125 34.2404 16.125H26.875V30.2344C26.875 31.3514 25.9764 32.25 24.8594 32.25ZM43 31.5782V40.9844C43 42.1014 42.1014 43 40.9844 43H2.01562C0.898633 43 0 42.1014 0 40.9844V31.5782C0 30.4612 0.898633 29.5625 2.01562 29.5625H13.4375V30.2344C13.4375 32.8295 15.5455 34.9375 18.1406 34.9375H24.8594C27.4545 34.9375 29.5625 32.8295 29.5625 30.2344V29.5625H40.9844C42.1014 29.5625 43 30.4612 43 31.5782ZM32.5859 38.9688C32.5859 38.045 31.8301 37.2891 30.9062 37.2891C29.9824 37.2891 29.2266 38.045 29.2266 38.9688C29.2266 39.8926 29.9824 40.6485 30.9062 40.6485C31.8301 40.6485 32.5859 39.8926 32.5859 38.9688ZM37.9609 38.9688C37.9609 38.045 37.2051 37.2891 36.2812 37.2891C35.3574 37.2891 34.6016 38.045 34.6016 38.9688C34.6016 39.8926 35.3574 40.6485 36.2812 40.6485C37.2051 40.6485 37.9609 39.8926 37.9609 38.9688Z" fill="white"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_91_6">
+                            <rect width="43" height="43" fill="white"/>
+                        </clipPath>
+                        </defs>
+                    </svg>
+                </button>
+            </div>
+            <!-- Titulo del proyecto -->
+            <div class="">
+                <h2 class="text-2xl text-white font-normal md:text-5xl">
+                    <span>Subir CSV</span>
+                </h2>
+            </div>
+            <!-- Boton para editar proyecto -->
+            <div class="p-8 md:p-0 md:p-8">
+                <div class="text-center">
+                    <input class="form-control text-white w-24 md:p-2 rounded-lg bg-gradient-to-r from-[#0E9197] to-[#70DBB2] md:w-full" name="file" type="file" (change)="onChange($event)">
+                    <div class="md:p-4">
+                        <button (click)="onUpload()" class="btn btn-success bg-gradient-to-r from-purple-800 to-purple-950 text-white font-bold py-3 rounded-full p-3 mt-4 md:mt-0"> 
+                            Ver Columnas
+                        </button>
+                    </div>
+                </div>                                                                                                                                  
+              </div>                            
+        </div>
+    </div>    
+        
+    <div class="p-6 pt-8 pb-16 md:p-0 md:pb-0 md:pt-0 md:px-32">
+        <button class="w-20 h-20 md:hidden md:mt-16 bg-white rounded-full gradient md:w-32 md:h-32">
+            <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43" fill="none" class="ml-5 md:ml-11">
+                <path d="M22.3417 0C15.6382 0 11.2963 2.74654 7.88744 7.64476C7.26907 8.53332 7.45971 9.75159 8.32231 10.4057L11.9452 13.1527C12.8164 13.8132 14.0559 13.6588 14.738 12.8043C16.8417 10.1688 18.4022 8.6514 21.6883 8.6514C24.272 8.6514 27.4677 10.3142 27.4677 12.8196C27.4677 14.7136 25.9042 15.6863 23.3531 17.1166C20.3781 18.7845 16.4413 20.8603 16.4413 26.053V26.875C16.4413 27.9882 17.3437 28.8906 18.4569 28.8906H24.5433C25.6565 28.8906 26.5589 27.9882 26.5589 26.875V26.3902C26.5589 22.7906 37.0795 22.6407 37.0795 12.9C37.0796 5.56447 29.4704 0 22.3417 0ZM21.5001 31.3647C18.2923 31.3647 15.6825 33.9745 15.6825 37.1824C15.6825 40.3902 18.2923 43 21.5001 43C24.708 43 27.3178 40.3902 27.3178 37.1823C27.3178 33.9745 24.708 31.3647 21.5001 31.3647Z" fill="white"/>
+            </svg>                       
+        </button>
+        <div class="text-3xl p-6 md:p-6 text-white md:text-2xl">
+            <span class="">Si necesitas más ayuda, consulta la base de datos de ejemplo y el video de aprendizaje</span>
+        </div>
+        <div class="backdrop-blur-sm bg-black/50 rounded-lg md:w-full md:mt-3">
+            <div class="p-5 rounded-lg md:p-8 md:rounded-lg">
+                <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" width="100%" height="300px"></iframe>
+            </div>
+            <div class="p-3 md:p-0 md:pb-6">
+                <button class="py-3 w-full md:w-80 bg-gradient-to-r from-purple-800 to-purple-950 hover:from-green-400 hover:to-gray-900 font-bold md:py-3 rounded-3xl text-white md:w-40">
+                    Base de datos de aprendizaje
+                </button>
+            </div>            
+        </div>
+    </div>
+</div>
+<!--
+<div class="h-full bg-red-900/50 grid grid-cols-2">
+    <div class="flex flex-col justify-between items-center bg-red-900/10 px-8 py-12">
+        <div class="bg-black/50 rounded-lg px-8 py-8 w-max h-max">
+            <h3 class="text-left font-light text-xl text-white">Paso 1</h3>
+            <h2 class="text-3xl text-white mt-8">Sube tu CSV</h2>
+            <button class=" w-20 h-20 bg-white rounded-full gradient md:w-32 md:h-32 mt-8">
+                <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43" fill="none" class="ml-5 md:ml-11">
+                    <g clip-path="url(#clip0_91_6)">
+                        <path d="M24.8594 32.25H18.1406C17.0236 32.25 16.125 31.3514 16.125 30.2344V16.125H8.75957C7.26465 16.125 6.51719 14.3194 7.57539 13.2612L20.3494 0.47876C20.9793 -0.151123 22.0123 -0.151123 22.6422 0.47876L35.4246 13.2612C36.4828 14.3194 35.7354 16.125 34.2404 16.125H26.875V30.2344C26.875 31.3514 25.9764 32.25 24.8594 32.25ZM43 31.5782V40.9844C43 42.1014 42.1014 43 40.9844 43H2.01562C0.898633 43 0 42.1014 0 40.9844V31.5782C0 30.4612 0.898633 29.5625 2.01562 29.5625H13.4375V30.2344C13.4375 32.8295 15.5455 34.9375 18.1406 34.9375H24.8594C27.4545 34.9375 29.5625 32.8295 29.5625 30.2344V29.5625H40.9844C42.1014 29.5625 43 30.4612 43 31.5782ZM32.5859 38.9688C32.5859 38.045 31.8301 37.2891 30.9062 37.2891C29.9824 37.2891 29.2266 38.045 29.2266 38.9688C29.2266 39.8926 29.9824 40.6485 30.9062 40.6485C31.8301 40.6485 32.5859 39.8926 32.5859 38.9688ZM37.9609 38.9688C37.9609 38.045 37.2051 37.2891 36.2812 37.2891C35.3574 37.2891 34.6016 38.045 34.6016 38.9688C34.6016 39.8926 35.3574 40.6485 36.2812 40.6485C37.2051 40.6485 37.9609 39.8926 37.9609 38.9688Z" fill="white"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_91_6">
+                        <rect width="43" height="43" fill="white"/>
+                    </clipPath>
+                    </defs>
+                </svg>
+            </button>
+            <input class="form-control text-white w-24 mt-8 md:p-1 rounded-lg bg-gradient-to-r from-[#0E9197] to-[#70DBB2] md:w-full" name="file" type="file" (change)="onChange($event)">
+        </div>
+        <div class="flex items-center">
+            <div class="rounded-lg md:rounded-lg">
+                <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 43 43" fill="none" class="m-4">
+                <path d="M22.3417 0C15.6382 0 11.2963 2.74654 7.88744 7.64476C7.26907 8.53332 7.45971 9.75159 8.32231 10.4057L11.9452 13.1527C12.8164 13.8132 14.0559 13.6588 14.738 12.8043C16.8417 10.1688 18.4022 8.6514 21.6883 8.6514C24.272 8.6514 27.4677 10.3142 27.4677 12.8196C27.4677 14.7136 25.9042 15.6863 23.3531 17.1166C20.3781 18.7845 16.4413 20.8603 16.4413 26.053V26.875C16.4413 27.9882 17.3437 28.8906 18.4569 28.8906H24.5433C25.6565 28.8906 26.5589 27.9882 26.5589 26.875V26.3902C26.5589 22.7906 37.0795 22.6407 37.0795 12.9C37.0796 5.56447 29.4704 0 22.3417 0ZM21.5001 31.3647C18.2923 31.3647 15.6825 33.9745 15.6825 37.1824C15.6825 40.3902 18.2923 43 21.5001 43C24.708 43 27.3178 40.3902 27.3178 37.1823C27.3178 33.9745 24.708 31.3647 21.5001 31.3647Z" fill="white"/>
+            </svg>
+            <span class="text-white ">Si necesitas más ayuda, consulta la base de datos de ejemplo y el video de aprendizaje</span>
+        </div>
+    </div>
+    <div class="flex justify-center bg-red-900/30 px-8 py-12">
+        <div class="bg-black/50 rounded-lg px-8 py-8 w-max">
+            <h3 class="text-left font-light text-xl text-white">Paso 2</h3>
+            <h2 class="text-3xl text-white mt-8">Selecciona las columnas:</h2>
+        </div>
+    </div>
+</div>
+-->

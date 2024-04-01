@@ -1,0 +1,19 @@
+.gradient {
+    background: rgb(67,214,129);
+    background: linear-gradient(0deg, rgba(67,214,129,1) 20%, rgba(160,255,191,1) 100%);
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-file input[type=file] {
+    position: absolute;
+    opacity: 0;
+    display: block;
+    cursor: pointer;
+  }
+
+  .file-input {
+    display: none;
+  }

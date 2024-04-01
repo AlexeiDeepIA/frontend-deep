@@ -1,0 +1,54 @@
+<div class="md:grid md:grid-rows-6 md:grid-flow-col gap-4">
+    <div class="px-12 pt-12 md:px-0 md:pt-0 md:mt-20">        
+        <span class="text-3xl text-white font-bold md:text-6xl">Columnas encontradas</span>        
+    </div>
+    <div class="px-8 py-3 md:py-3 md:px-0">    
+        <span class="text-center text-lg text-white/50 font-normal md:p-0 md:text-4xl">Selecciona dos para personalizar el video y dos para contacto.</span>        
+    </div>
+    <!-- COLUMNAS ENCONTRADAS -->
+    
+        <!-- Muestra los datos -->     
+    <div class="p-5 md:p-0 md:-mt-8">
+        <div class="rounded-xl md:ml-20 md:mr-20 backdrop-blur-sm bg-black/30 md:rounded-full">
+            <div class="md:grid md:grid-cols-2 gap-4">
+                <div class="md:flex">
+                    <div class="pt-8 pb-5 md:pt-0 md:pb-0 md:p-0">
+                        <button class="w-12 h-12 rounded-full gradient md:mx-8 md:my-8 md:w-12 md:h-12">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16" fill="none" class="ml-4">
+                                <g clip-path="url(#clip0_113_123)">
+                                    <path d="M14.6335 2.28572V3.71428C14.6335 4.97322 11.4384 6 7.50034 6C3.56223 6 0.367188 4.97322 0.367188 3.71428V2.28572C0.367188 1.02678 3.56223 0 7.50034 0C11.4384 0 14.6335 1.02678 14.6335 2.28572ZM14.6335 5.5V8.71428C14.6335 9.97322 11.4384 11 7.50034 11C3.56223 11 0.367188 9.97322 0.367188 8.71428V5.5C1.8997 6.53572 4.70465 7.01788 7.50034 7.01788C10.296 7.01788 13.1009 6.53572 14.6335 5.5ZM14.6335 10.5V13.7143C14.6335 14.9732 11.4384 16 7.50034 16C3.56223 16 0.367188 14.9732 0.367188 13.7143V10.5C1.8997 11.5357 4.70465 12.0179 7.50034 12.0179C10.296 12.0179 13.1009 11.5357 14.6335 10.5Z" fill="white"/>                            </g>
+                                <defs>
+                                    <clipPath id="clip0_113_123">
+                                        <rect width="15" height="16" fill="white"/>
+                                    </clipPath>
+                                </defs>
+                            </svg> 
+                        </button>
+                    </div>
+                    <div class="md:grid-rows-2 md:items-start md:mt-7">
+                        <div class="text-xl md:flex text-white md:text-2xl font-bold font-normal">
+                            <span>ID</span>
+                        </div>
+                        <div class="text-white/50 font-normal md:text-lg">
+                            <span>Columna 1</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-5 pt-5 pb-5 md:pb-5 md:pt-0 md:px-0 md:flex md:items-center md:justify-evenly">
+                    <!-- Selecciona -->
+                    <span class="text-white/70 font-bold md:text-2xl">Selecciona:</span>
+                    <label class="button-checkbox" [class.selected]="selectedOption === 'personalizar'" (click)="selectOption('personalizar')">
+                        <input type="radio" name="option" [value]="'personalizar'" hidden>
+                        <span>Personalizar</span>
+                    </label>                    
+                    <label class="button-checkbox" [class.selected]="selectedOption === 'contacto'" (click)="selectOption('contacto')">
+                        <input type="radio" name="option" [value]="'contacto'" hidden>
+                        <span>Contacto</span>
+                    </label>               
+                </div>
+                
+            </div>                         
+        </div>
+    </div>        
+</div>
+

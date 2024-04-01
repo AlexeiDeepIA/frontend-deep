@@ -1,0 +1,44 @@
+<app-header></app-header>
+<!-- Main content -->
+<!--
+<div class="md:pl-20 md:w-full md:p" id="main-container">
+  <div class="py-6 px-6 flex">
+
+      
+    <div class="pr-6 md:p-0 h-auto md:flex md:items-center md:justify-center">
+      <div class="bg-black rounded-lg md:w-full h-auto">
+        <div class="md:space-y-0.5 md:flex-1">
+          <h3 class="text-3xl p-5 md:p-0 md:font-medium md:text-lg md:tracking-tight text-white md:leading-tight md:m-5">
+            Columnas
+          </h3>          
+          <div class="p-6 md:p-6 md:grid md:grid-rows-4 md:gap-8 md:items-center md:pt-4">
+            <div class="" *ngFor="let data of csvData; let i = index">
+              <app-column-info [colName]="data.key" [colValue]="data.value" [startValue]="startValue[i]" [endValue]="endValue[i]" ></app-column-info>
+            </div>            
+    
+            <app-column-info colName="ID" [colNumber]="1" [startValue]="startValue1" [endValue]="endValue1"></app-column-info>
+            <app-column-info colName="Nombre" [colNumber]="2" [startValue]="startValue2" [endValue]="endValue2"></app-column-info>
+            <app-column-info colName="Telefono" [colNumber]="3" [startValue]="startValue3" [endValue]="endValue3"></app-column-info>
+            <app-column-info colName="Email" [colNumber]="4" [startValue]="startValue4" [endValue]="endValue4"></app-column-info>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <div class="order-first md:order-2 md:flex md:items-end pl-6 w-full">
+      <video id="video" [src]="videoSource" (timeupdate)="onTimeUpdate($event)" class="rounded-lg" controls>
+      </video>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-y-6 p-6 bg-black mx-6 rounded-lg">
+    <div *ngFor="let row of csvData; let i = index">
+      <app-slider [colName]="row.key" [colValue]="row.value" [colNumber]="i" (startHasChanged)="changeStart($event)" (endHasChanged)="changeEnd($event)" (toggleButtons)="toggleSlider($event)"/>  
+    </div>
+  
+    <app-slider colName="ID" [colNumber]=1 (startHasChanged)="changeStart($event)" (endHasChanged)="changeEnd($event)" (toggleButtons)="toggleSlider($event)"/>
+    <app-slider colName="Nombre" [colNumber]=2 (startHasChanged)="changeStart($event)" (endHasChanged)="changeEnd($event)" (toggleButtons)="toggleSlider($event)"/>
+    <app-slider colName="Telefono" [colNumber]=3 (startHasChanged)="changeStart($event)" (endHasChanged)="changeEnd($event)" (toggleButtons)="toggleSlider($event)"/>
+    <app-slider colName="Email" [colNumber]=4 (startHasChanged)="changeStart($event)" (endHasChanged)="changeEnd($event)" (toggleButtons)="toggleSlider($event)"/>
+  </div>
+</div>-->

@@ -1,0 +1,34 @@
+<app-navbar></app-navbar>
+<!-- Main content -->
+<div class=" md:w-full md:p" id="main-container">
+  <div class="py-6 px-6 flex">
+    <!-- Contenedor de la izquierda-->
+      
+    <div class="pr-6 md:p-0 h-auto md:flex md:items-center md:justify-center">
+      <div class="bg-black rounded-lg md:w-full h-auto">
+        <div class="md:space-y-0.5 md:flex-1">
+          <h3 class="text-3xl p-5 md:p-0 md:font-medium md:text-lg md:tracking-tight text-white md:leading-tight md:m-5">
+            Columnas
+          </h3>          
+          <div class="p-6 md:p-6 md:grid md:grid-rows-4 md:gap-8 md:items-center md:pt-4">                       
+            <app-column-info colName="ID" [colNumber]="1" [startValue]="startValue1" [endValue]="endValue1"></app-column-info>
+            <app-column-info colName="Nombre" [colNumber]="2" [startValue]="startValue2" [endValue]="endValue2"></app-column-info>
+            <app-column-info colName="Telefono" [colNumber]="3" [startValue]="startValue3" [endValue]="endValue3"></app-column-info>
+            <app-column-info colName="Email" [colNumber]="4" [startValue]="startValue4" [endValue]="endValue4"></app-column-info>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Contenedor de la derecha -->
+    <div class="order-first md:order-2 md:flex md:items-end pl-6 w-full">
+        <video *ngIf="videoUrl" [src]="videoUrl" controls></video>
+    </div>
+  </div>
+  <!-- Progress Bar -->
+  <div class="flex flex-col gap-y-6 p-6 bg-black mx-6 rounded-lg">
+    <app-slider-new colName="ID" [colNumber]=1 (startValueChanged)="onStartValueChanged($event, 1)" (endValueChanged)="onEndValueChanged($event, 1)" (toggleButtons)="toggleSlider($event)"/>
+    <app-slider-new colName="Nombre" [colNumber]=2 (startValueChanged)="onStartValueChanged($event, 2)" (endValueChanged)="onEndValueChanged($event, 2)" (toggleButtons)="toggleSlider($event)"/>
+    <app-slider-new colName="Apellido" [colNumber]=3 (startValueChanged)="onStartValueChanged($event, 3)" (endValueChanged)="onEndValueChanged($event, 3)" (toggleButtons)="toggleSlider($event)"/>
+    <app-slider-new colName="Correo" [colNumber]=4 (startValueChanged)="onStartValueChanged($event, 4)" (endValueChanged)="onEndValueChanged($event, 4)" (toggleButtons)="toggleSlider($event)"/>
+  </div>
+</div>

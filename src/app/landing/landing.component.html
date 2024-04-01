@@ -1,0 +1,63 @@
+<body>
+    <app-navbar></app-navbar>
+<div class="flex md:w-full relative" id="container">    
+    <div *ngIf="!hasClicked" class="md:flex md:justify-between w-full rounded-full">
+        <div class="flex w-full justify-center items-center">
+            <div class="grid  p-2">
+                <span class="font-extrabold text-white md:text-6xl text-2xl text-animation oculto"> Bienvenido a 
+                    <span class="md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-[#0E9297] to-[#43D681]">Deeptarget</span> 
+                </span>   
+                <p class="text-white md:text-4xl text-lg p-2 text-animation-right oculto"> Para comenzar, vamos a cargar un video</p>     
+                <div class="pt-8 flex justify-center button-animation">
+                    <button (click)="stepOne()" class="gap-2 flex w-auto p-4 bg-gradient-to-r from-[#0E9297] to-[#43D681] text-xl rounded-lg text-white font-bold hover:translate-y-[-0.5rem] duration-200">
+                        Comenzar
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                        </svg>                          
+                    </button>      
+                </div>                  
+            </div>            
+        </div>
+        <div class="w-full min-h-full ">
+            <img src="../../assets/images/IA.png" alt="" class="max-w-full max-h-[100vh] img-animation ">
+        </div>                            
+    </div> 
+    <!-- APARTADO PARA SUBIR EL VIDEO -->   
+    <div *ngIf="hasClicked" class="md:flex md:justify-between imd:tems-center w-full rounded-full">        
+        <div class="md:w-full md:min-h-full ">
+            <img src="../../assets/images/Robot-Hand-PNG.png" alt="" class="min-w-full max-h-screen img-hand hidden md:block">
+        </div>
+        <div class="flex w-full h-[100vh] justify-start items-center md:w-full">
+            <div *ngIf="!videoUrl" class="grid">
+                <span class="font-extrabold text-white text-3xl md:text-6xl text-animation oculto"> Graba tu rostro 
+                    <span class="text-6xl bg-clip-text text-transparent bg-gradient-to-r from-[#0E9297] to-[#43D681] "></span> 
+                </span>   
+                <p class="text-white md:text-4xl text-2xl p-2 text-animation-right oculto"> Para comenzar, vamos a cargar un video</p>     
+                <div class="pt-8 flex justify-center">     
+                    <button class="w-auto p-4 bg-gradient-to-r from-[#0E9297] to-[#43D681] text-xl rounded-lg text-white font-bold hover:translate-y-[-0.5rem] duration-200" (click)="openFileInput()">Seleccionar o grabar video</button>
+                    <input #fileInput type="file" accept="video/*" class="hidden" (change)="onFileSelected($event)" (change)="selectedVideo($event)">                                      
+                </div>                  
+            </div>  
+            <div *ngIf="videoUrl" class="w-full grid justify-center items-center p-2">
+                <div class="pb-12 grid justify-center">
+                     <span class="text-white text-5xl font-bold">¿Continuar con este video?</span>
+                     <div class="flex justify-center pt-4 gap-2">
+                        <div class="">
+                            <button (click)="cancel()" class="w-44 p-4 bg-gradient-to-r from-[#e01a17] to-[#b3529b] text-xl rounded-lg text-white font-bold hover:translate-y-[-0.5rem] duration-200">
+                                Cancelar
+                             </button>
+                        </div>   
+                        <div>
+                            <button (click)="uploadFile()" class="w-44 p-4 bg-gradient-to-r from-[#0E9297] to-[#43D681] text-xl rounded-lg text-white font-bold hover:translate-y-[-0.5rem] duration-200">
+                                Continuar
+                             </button> 
+                        </div> 
+                     </div>                       
+                </div>
+                <video *ngIf="videoUrl" [src]="videoUrl" class="w-[33vw] max-h-[70vh] rounded-lg"></video>    
+            </div> 
+        </div>                                             
+    </div>   
+    <app-loader *ngIf="showLoader"></app-loader>
+</div>
+</body>

@@ -1,0 +1,13 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="flex flex-rows items-center text-white ">
+    <h2 class="w-1/4 font-medium ">Columna {{colNumber}}: {{colName}}</h2>
+    <button (click)="playColumnClick()" class="playColBtn disabled:from-gray-500 disabled:to-gray-400 hover:from-white hover:to-gray-300 disabled:hover:text-white hover:text-black bg-gradient-to-r from-purple-800 to-purple-950 py-2.5 px-4 rounded-full"><i class="fa fa-play"></i></button>
+    <div class="w-full ml-6 bg-white/10 rounded-full">
+        <mat-slider min="0" [max]="videoDuration" discrete="true" [displayWith]="formatLabel">
+            <input (input)="onStartInputChange($event)" matSliderStartThumb [(ngModel)]="startValue">
+            <input (input)="onEndInputChange($event)" matSliderEndThumb [(ngModel)]="endValue">
+        </mat-slider>
+    </div>
+    <br>
+</div>
