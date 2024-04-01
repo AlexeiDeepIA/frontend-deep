@@ -13,7 +13,9 @@ export class SuccessPageComponent implements OnInit {
 
   ngOnInit(): void {
     // Realizar la solicitud al servidor al cargar la página
-    this.azureService.checkServerStatus();
+    this.azureService.getContainerData().subscribe(() => {
+      console.log('Solicitud GET enviada al servidor');
+    });
     // Redirigir después de un tiempo de espera
     const tiempoEspera = 3000;
     setTimeout(() => {
